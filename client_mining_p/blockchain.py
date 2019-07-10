@@ -14,7 +14,7 @@ class Blockchain(object):
         self.current_transactions = []
         self.nodes = set()
 
-        self.new_block(previous_hash=1, proof=100)
+        self.new_block(previous_hash=1, proof=99)
 
     def new_block(self, proof, previous_hash=None):
         """
@@ -98,7 +98,7 @@ class Blockchain(object):
         """
         guess = f'{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
-        return guess_hash[:4] == "0000"
+        return guess_hash[:4] == "000000"
 
     def valid_chain(self, chain):
         """
@@ -168,6 +168,13 @@ def mine():
     }
     return jsonify(response), 200
 
+@app.route('/last_proof', methods=['GET'])
+def last_proof():
+    last_proof = blockchain.last_block.get('proof')
+    response = {
+        'proof': last_proof,
+    }
+    return jsonify(response), 200
 
 @app.route('/transactions/new', methods=['POST'])
 def new_transaction():
