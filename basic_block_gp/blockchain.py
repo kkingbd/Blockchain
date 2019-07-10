@@ -12,7 +12,7 @@ class Blockchain(object):
         self.current_transactions = []
         self.nodes = set()
 
-        self.new_block(previous_hash=1, proof=100)
+        self.new_block(previous_hash=1, proof=99) #Make 99 instead of 100 to run faster
 
     def new_block(self, proof, previous_hash=None):
         """
@@ -111,7 +111,6 @@ class Blockchain(object):
             print("\n-------------------\n")
             # Check that the hash of the block is correct
             # TODO: Return false if hash isn't correct
-
             # Check that the Proof of Work is correct
             # TODO: Return false if proof isn't correct
 
@@ -180,6 +179,8 @@ def new_transaction():
 def full_chain():
     response = {
         # TODO: Return the chain and its current length
+        'currentChain' : blockchain.chain,
+        'length' : len(blockchain.chain)
     }
     return jsonify(response), 200
 
